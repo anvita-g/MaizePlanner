@@ -7,6 +7,7 @@ import {
 import App from "./App";
 import Record from "./components/Record";
 import RecordList from "./components/RecordList";
+import ScheduleBuilder from "./components/ScheduleBuilder"; 
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
         element: <Record />,
       },
     ],
+  },
+  {
+    path: "/schedule", // Add a new route for the ScheduleBuilder page
+    element: <ScheduleBuilder />, 
   },
 ]);
 

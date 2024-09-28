@@ -1,0 +1,33 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+  
+  .app {
+    height: 100vh;
+  }
+  
+  .welcome-screen {
+    background-color: #00274C;
+    color: #FFCB05;    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    font-size: 3rem;
+    font-weight: bold;
+    transition: opacity 2s ease-in-out;
+    opacity: 1;
+  }
+  
+  .yellow-screen {
+    background-color: #FFCB05;
+    height: 100vh;
+    width: 100vw;
+  }
+  
+  .welcome-screen.hide {
+    opacity: 0;
+  }
