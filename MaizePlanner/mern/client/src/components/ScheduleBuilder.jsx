@@ -89,8 +89,17 @@ const ScheduleBuilder = () => {
 
   // Function to add a new class to an array
   const submitClass = () => {
-    const newItem = `${course.label} ${code.label}`; 
-    setItems([...items, newItem]);
+    // Loop through classList to create a new item string for each selection
+    classList.forEach((classItem) => {
+      const { course, code } = classItem;
+  
+      if (course && code) {
+        const newItem = `${course.label} ${code.label}`; // Use selected course and code labels
+        setItems((prevItems) => [...prevItems, newItem]); // Add to items array
+      } else {
+        alert("Please select both a course and a code."); // Alert if a selection is missing
+      }
+    });
   };
 
   // Function to handle changes in course or code
@@ -170,7 +179,7 @@ const ScheduleBuilder = () => {
             <span className="arrow">&#10145;</span> {/* Arrow Icon */}
           </div>
           <ul>
-            {items.map((item, index) => (
+          {items.map((item, index) => (
               <li key={index}>{item}</li> // Display each item in a list
             ))}
           </ul>
