@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Select from "react-select";
 import "./ScheduleBuilder.css"; 
 
@@ -29,6 +29,27 @@ const courseCodes = [
 ];
 
 const ScheduleBuilder = () => {
+  const [classList, setClassList] = useState([{ course: null, code: null }]);
+
+  // Function to add a new row for class selection
+  const addClass = () => {
+    setClassList([...classList, { course: null, code: null }]);
+  };
+
+  // Function to handle changes in course or code
+  const handleClassChange = (index, selectedOption, type) => {
+    const updatedClasses = classList.map((item, idx) => {
+      if (idx === index) {
+        return {
+          ...item,
+          [type]: selectedOption
+        };
+      }
+      return item;
+    });
+    setClassList(updatedClasses);
+  };
+
   return (
     <div>
       {/* Header Bar */}
@@ -55,20 +76,31 @@ const ScheduleBuilder = () => {
         {/* Second Section: Classes */}
         <div className="section">
           <h1>CLASSES</h1>
-          <div className="dropdown-container">
-            <Select
-              className="dropdown-select"
-              options={courses}
-              placeholder="Course name"
-              isSearchable
-            />
-            <Select
-              className="dropdown-select"
-              options={courseCodes} 
-              placeholder="Course code"
-              isSearchable
-            />
-          </div>
+          {classList.map((item, index) => (
+            <div key={index} className="dropdown-container">
+              <Select
+                className="dropdown-select"
+                options={courses}
+                placeholder="Course name"
+                isSearchable
+                onChange={(selectedOption) =>
+                  handleClassChange(index, selectedOption, "course")
+                }
+              />
+              <Select
+                className="dropdown-select"
+                options={courseCodes}
+                placeholder="Course code"
+                isSearchable
+                onChange={(selectedOption) =>
+                  handleClassChange(index, selectedOption, "code")
+                }
+              />
+            </div>
+          ))}
+          <button className="add-class-button" onClick={addClass}>
+            Add Another Class
+          </button>
         </div>
 
         {/* Third Section: Your Schedule */}
