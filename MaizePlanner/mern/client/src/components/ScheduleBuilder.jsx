@@ -218,7 +218,7 @@ const ScheduleBuilder = () => {
             Add Course
           </button>
           <button className="submit-class-button" onClick={submitClass}>
-            Submit Class
+            Build Your MaizePlanner!
           </button>
         </div>
 
