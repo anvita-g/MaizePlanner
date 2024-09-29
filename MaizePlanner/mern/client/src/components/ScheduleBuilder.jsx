@@ -63,11 +63,13 @@ const courses = [
   { value: "class58", label: "PHYSICS" },
   { value: "class59", label: "POLSCI" },
   { value: "class60", label: "PSYCH" },
+  { value: "stats", label: "STATS" },
 ];
 
 const courseCodes = [
   { value: "econ", label: "101" },
   { value: "eecs", label: "280" },
+  { value: "eecs", label: "250" },
   { value: "cogsci", label: "200" },
   { value: "climate", label: "102" },
   { value: "eecs", label: "281" },
@@ -79,52 +81,67 @@ const courseCodes = [
 const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 
 const ScheduleBuilder = () => {
-  const [classList, setClassList] = useState([{ course: null, code: null, day: null, time: null}]);
-  const [scheduleText, setScheduleText] = useState("");
-  const [scheduleTable, setScheduleTable] = useState([]); // State to hold the schedule text
+  const [classList, setClassList] = useState([{ course: null, code: null }]);
+  const [scheduleTable, setScheduleTable] = useState([]);
 
   const addClass = () => {
-    setClassList([...classList, { course: null, code: null, day: null, time: null}]);
+    setClassList([...classList, { course: null, code: null }]);
   };
 
   const submitClass = () => {
     const newItems = classList.map((classItem) => {
       const { course, code } = classItem;
       return course && code ? `${course.label} ${code.label}` : null;
-    }).filter(item => item !== null); // Filter out any null entries
+    }).filter(item => item !== null);
 
     if (newItems.length === 0) {
-      alert("Please select both a course and a code."); // Alert if a selection is missing
-    } else {
-      const selectedClasses = newItems.join(", ");
-      
-      // Example Hardcoded schedule based on the classes selected (can later be user-defined)
-      const classTimes = classList.map((item, index) => {
-        if (item.course && item.code) {
-          // Example hardcoding times and days based on course selection
-          return {
-            course: item.course.label,
-            code: item.code.label,
-            day: daysOfWeek[index % 5], // Assign classes to different days (for simplicity)
-            time: `${8 + index}:00 AM - ${9 + index}:00 AM` // Hardcode times (later make user-defined)
-          };
-        }
-        return null;
-      }).filter(item => item !== null);
-      
-      setScheduleTable(classTimes); // Update the table with class times and days
-      
-      if (
-        selectedClasses.includes("ECON 102") &&
-        selectedClasses.includes("EECS 280") &&
-        selectedClasses.includes("COGSCI 200") &&
-        selectedClasses.includes("CLIMATE 102")
-      ) {
-        setScheduleText("hi");
-      } else {
-        setScheduleText(newItems.join("\n"));
-      }
+      alert("Please select both a course and a code.");
+      return;
     }
+
+
+    const selectedClasses = newItems.join(", ");
+    
+    // Hardcoded schedule for specific classes
+    const classTimes = [];
+
+    if (selectedClasses.includes("ECON 101")) {
+      classTimes.push({ course: "ECON", code: "101", day: "Monday", time: "10:00 AM - 11:30 AM" });
+      classTimes.push({ course: "ECON", code: "101", day: "Wednesday", time: "10:00 AM - 11:30 AM" });
+      classTimes.push({ course: "ECON", code: "101", day: "Friday", time: "10:00 AM - 11:30 AM" });
+    }
+    if (selectedClasses.includes("EECS 280")) {
+      classTimes.push({ course: "EECS", code: "280", day: "Monday", time: "4:00 PM - 5:00 PM" });
+      classTimes.push({ course: "EECS", code: "280", day: "Wednesday", time: "4:00 PM - 5:00 PM" });
+      classTimes.push({ course: "EECS", code: "280", day: "Tuesday", time: "3:30 PM - 5:30 PM" });
+    }
+    if (selectedClasses.includes("COGSCI 200")) {
+      classTimes.push({ course: "COGSCI", code: "200", day: "Tuesday", time: "11:30 AM - 1:00 PM" });
+      classTimes.push({ course: "COGSCI", code: "200", day: "Thursday", time: "11:30 AM - 1:00 PM" });
+      classTimes.push({ course: "COGSCI", code: "200", day: "Friday", time: "9:00 AM - 10:00 AM" });
+    }
+    if (selectedClasses.includes("STATS 250")) {
+      classTimes.push({ course: "STATS", code: "250", day: "Tuesday", time: "8:30 AM - 10:00 AM" });
+      classTimes.push({ course: "STATS", code: "250", day: "Thursday", time: "8:30 AM - 10:00 AM" });
+      classTimes.push({ course: "STATS", code: "250", day: "Wednesday", time: "12:30 AM - 2:30 PM" });
+    }
+    
+    if (selectedClasses.includes("CMPLXSYS 251")) {
+      classTimes.push({ course: "CMPLXSYS", code: "251", day: "Monday", time: "9:00 AM - 10:00 AM" });
+      classTimes.push({ course: "CMPLXSYS", code: "251", day: "Wednesday", time: "9:00 AM - 10:00 AM" });
+      classTimes.push({ course: "CMPLXSYS", code: "251", day: "Friday", time: "10:00 AM - 12:00 PM" })
+    }
+    if (selectedClasses.includes("EECS 281")) {
+      classTimes.push({ course: "EECS", code: "281", day: "Tuesday", time: "10:30 AM - 12:00 PM" });
+      classTimes.push({ course: "EECS", code: "281", day: "Thursday", time: "10:30 AM - 12:00 PM" });
+      classTimes.push({ course: "EECS", code: "281", day: "Wednesday", time: "1:30 PM - 3:30 PM" });
+    }
+    if (selectedClasses.includes("IOE 373")) {
+      classTimes.push({ course: "IOE", code: "373", day: "Tuesday", time: "12:00 PM - 1:30 PM" });
+      classTimes.push({ course: "IOE", code: "373", day: "Thursday", time: "12:00 AM - 1:30 PM" });
+      classTimes.push({ course: "IOE", code: "373", day: "Friday", time: "1:30 PM - 3:30 PM" });
+    }
+setScheduleTable(classTimes);
   };
 
   const handleClassChange = (index, selectedOption, type) => {
@@ -196,24 +213,9 @@ const ScheduleBuilder = () => {
           </button>
         </div>
 
-        {/* Third Section: Your Schedule */}
+        {/* Third Section: Class Schedule */}
         <div className="section">
           <h1>YOUR SCHEDULE</h1>
-          
-          {/* Text Box to display the schedule */}
-          <textarea
-            className="schedule-textarea"
-            value={scheduleText}
-            readOnly
-            rows={5}
-            style={{ 
-              width: "100%", 
-              padding: "10px", 
-              borderRadius: "5px", 
-              border: "1px solid #ccc", 
-              backgroundColor: "white" 
-            }} 
-          />
         </div>
 
         {/* Table Section for Class Schedule */}
