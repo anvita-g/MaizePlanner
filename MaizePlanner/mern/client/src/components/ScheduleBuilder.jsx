@@ -78,31 +78,35 @@ const courseCodes = [
 
 const ScheduleBuilder = () => {
   const [classList, setClassList] = useState([{ course: null, code: null }]);
+  const [scheduleText, setScheduleText] = useState(""); // State to hold the schedule text
 
-  const [items, setItems] = useState([]);
-
-  // Function to add a new row for class selection
   const addClass = () => {
     setClassList([...classList, { course: null, code: null }]);
-    //setClassList([{ course: null, code: null }]);
   };
 
-  // Function to add a new class to an array
   const submitClass = () => {
-    // Loop through classList to create a new item string for each selection
-    classList.forEach((classItem) => {
+    const newItems = classList.map((classItem) => {
       const { course, code } = classItem;
-  
-      if (course && code) {
-        const newItem = `${course.label} ${code.label}`; // Use selected course and code labels
-        setItems((prevItems) => [...prevItems, newItem]); // Add to items array
+      return course && code ? `${course.label} ${code.label}` : null;
+    }).filter(item => item !== null); // Filter out any null entries
+
+    if (newItems.length === 0) {
+      alert("Please select both a course and a code."); // Alert if a selection is missing
+    } else {
+      const selectedClasses = newItems.join(", "); // Join the classes for comparison
+      if (
+        selectedClasses.includes("ECON 102") &&
+        selectedClasses.includes("EECS 280") &&
+        selectedClasses.includes("COGSCI 200") &&
+        selectedClasses.includes("CLIMATE 102")
+      ) {
+        setScheduleText("hi"); // Set text area to "hi"
       } else {
-        alert("Please select both a course and a code."); // Alert if a selection is missing
+        setScheduleText(newItems.join("\n")); // Otherwise, set the text area with the class list
       }
-    });
+    }
   };
 
-  // Function to handle changes in course or code
   const handleClassChange = (index, selectedOption, type) => {
     const updatedClasses = classList.map((item, idx) => {
       if (idx === index) {
@@ -178,11 +182,21 @@ const ScheduleBuilder = () => {
           <div className="arrow-container">
             <span className="arrow">&#10145;</span> {/* Arrow Icon */}
           </div>
-          <ul>
-          {items.map((item, index) => (
-              <li key={index}>{item}</li> // Display each item in a list
-            ))}
-          </ul>
+          
+          {/* Text Box to display the schedule */}
+          <textarea
+            className="schedule-textarea"
+            value={scheduleText}
+            readOnly
+            rows={5}
+            style={{ 
+              width: "100%", 
+              padding: "10px", 
+              borderRadius: "5px", 
+              border: "1px solid #ccc", 
+              backgroundColor: "white" 
+            }} 
+          />
         </div>
       </div>
     </div>
