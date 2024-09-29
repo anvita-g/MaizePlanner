@@ -105,7 +105,7 @@ const ScheduleBuilder = () => {
 
     // Check if SI 364 is selected
     if (selectedClasses.includes("SI 364")) {
-      setErrorMessage("Error: No schedule can be made from this combination.");
+      setErrorMessage("Error: No schedule can be made from this combination due to time conflicts.");
       setScheduleTable([]); // Clear any previously generated schedules
       return;
     } else {
@@ -178,8 +178,8 @@ const ScheduleBuilder = () => {
       {/* Main Content */}
       <div className="schedule-container">
         {/* First Section: Semester */}
-        <div className="section-semester">
-          <h1>SEMESTER</h1>
+        <div className="section">
+          <h1 className="section-label"><u>SEMESTER</u></h1>
           <Select
             className="dropdown-select"
             options={[
@@ -193,7 +193,7 @@ const ScheduleBuilder = () => {
 
         {/* Second Section: Classes */}
         <div className="section">
-          <h1>CLASSES</h1>
+          <h1><u>CLASSES</u></h1>
           {classList.map((item, index) => (
             <div key={index} className="dropdown-container">
               <Select
@@ -215,7 +215,7 @@ const ScheduleBuilder = () => {
             </div>
           ))}
           <button className="add-class-button" onClick={addClass}>
-            Add Another Class
+            Add Course
           </button>
           <button className="submit-class-button" onClick={submitClass}>
             Submit Class
@@ -227,7 +227,7 @@ const ScheduleBuilder = () => {
 
         {/* Third Section: Class Schedule */}
         <div className="section">
-          <h1>YOUR SCHEDULE</h1>
+        <h1 className="section"><u>YOUR SCHEDULE</u></h1>
         </div>
 
         {/* Table Section for Class Schedule */}
@@ -248,7 +248,7 @@ const ScheduleBuilder = () => {
                       .filter((item) => item.day === day)
                       .map((item, index) => (
                         <div key={index}>
-                          {item.course} {item.code}
+                          <b>{item.course} {item.code}</b>
                           <br />
                           {item.time}
                         </div>

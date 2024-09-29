@@ -7,11 +7,12 @@
     width: 100%;
     z-index: 100; 
     border-bottom: 3px solid white; 
+    font-size: large;
 }
   
   .header-title {
     color: #FFCB05;
-    font-size: 2rem;
+    font-size: 40px;
     font-weight: bold;
     margin: 0;
   }
@@ -44,7 +45,7 @@
   }
   
   .section h1 {
-    font-size: 4rem;
+    font-size: 40px;
     font-weight: bold;
     color: #003366;
     margin-bottom: 1rem;
@@ -78,6 +79,14 @@
   .dropdown-select {
     margin-right: 10px;  
     width: 100%;
+    border: 2px solid #003366;
+  }
+
+  .course-code-input {
+    margin-right: 10px;  
+    width: 97%;
+    padding: 0.3rem;
+    border: 2px solid #003366;
   }
 
   .arrow-container {
@@ -105,17 +114,19 @@
     font-size: 16px;
     cursor: pointer;
     border-radius: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid #003366;
   }
   
   .add-class-button {
     margin-right: 10px;
     margin-left: 10px;
-    background-color: #f0f0f0;
+    background-color: #003366;
+    color: #FFCB05;
   }
   
   .submit-class-button {
-    background-color: #f0f0f0;
+    background-color: #003366;
+    color: #FFCB05;
   }
 
 
@@ -123,9 +134,9 @@
   .schedule-table {
     border-collapse: collapse; /* Collapses borders into a single border */
     width: 100%; /* Makes the table take the full width */
-    margin-top: 20px; /* Adds some space above the table */
-
+    margin-top: -50px; /* Adds some space above the table */
     table-layout: fixed;
+    font-size: large;
   }
   
   .schedule-table th, .schedule-table td {
