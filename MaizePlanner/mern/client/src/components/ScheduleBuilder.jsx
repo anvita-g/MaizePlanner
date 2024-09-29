@@ -83,6 +83,7 @@ const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 const ScheduleBuilder = () => {
   const [classList, setClassList] = useState([{ course: null, code: null }]);
   const [scheduleTable, setScheduleTable] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const addClass = () => {
     setClassList([...classList, { course: null, code: null }]);
@@ -99,9 +100,17 @@ const ScheduleBuilder = () => {
       return;
     }
 
-
     const selectedClasses = newItems.join(", ");
-    
+
+    // Check if SI 364 is selected
+    if (selectedClasses.includes("SI 364")) {
+      setErrorMessage("Error: No schedule can be made from this combination.");
+      setScheduleTable([]); // Clear any previously generated schedules
+      return;
+    } else {
+      setErrorMessage(""); // Clear the error message if any other classes are selected
+    }
+
     // Hardcoded schedule for specific classes
     const classTimes = [];
 
@@ -129,7 +138,7 @@ const ScheduleBuilder = () => {
     if (selectedClasses.includes("CMPLXSYS 251")) {
       classTimes.push({ course: "CMPLXSYS", code: "251", day: "Monday", time: "9:00 AM - 10:00 AM" });
       classTimes.push({ course: "CMPLXSYS", code: "251", day: "Wednesday", time: "9:00 AM - 10:00 AM" });
-      classTimes.push({ course: "CMPLXSYS", code: "251", day: "Friday", time: "10:00 AM - 12:00 PM" })
+      classTimes.push({ course: "CMPLXSYS", code: "251", day: "Friday", time: "10:00 AM - 12:00 PM" });
     }
     if (selectedClasses.includes("EECS 281")) {
       classTimes.push({ course: "EECS", code: "281", day: "Tuesday", time: "10:30 AM - 12:00 PM" });
@@ -138,10 +147,11 @@ const ScheduleBuilder = () => {
     }
     if (selectedClasses.includes("IOE 373")) {
       classTimes.push({ course: "IOE", code: "373", day: "Tuesday", time: "12:00 PM - 1:30 PM" });
-      classTimes.push({ course: "IOE", code: "373", day: "Thursday", time: "12:00 AM - 1:30 PM" });
+      classTimes.push({ course: "IOE", code: "373", day: "Thursday", time: "12:00 PM - 1:30 PM" });
       classTimes.push({ course: "IOE", code: "373", day: "Friday", time: "1:30 PM - 3:30 PM" });
     }
-setScheduleTable(classTimes);
+
+    setScheduleTable(classTimes); // Update the table with class times and days
   };
 
   const handleClassChange = (index, selectedOption, type) => {
@@ -212,6 +222,9 @@ setScheduleTable(classTimes);
             Submit Class
           </button>
         </div>
+
+        {/* Error Message Section */}
+        {errorMessage && <div className="error-message">{errorMessage}</div>}
 
         {/* Third Section: Class Schedule */}
         <div className="section">
