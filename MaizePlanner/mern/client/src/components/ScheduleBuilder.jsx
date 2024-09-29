@@ -76,12 +76,15 @@ const courseCodes = [
   { value: "cmplxsys", label: "251" },
 ];
 
+const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+
 const ScheduleBuilder = () => {
-  const [classList, setClassList] = useState([{ course: null, code: null }]);
-  const [scheduleText, setScheduleText] = useState(""); // State to hold the schedule text
+  const [classList, setClassList] = useState([{ course: null, code: null, day: null, time: null}]);
+  const [scheduleText, setScheduleText] = useState("");
+  const [scheduleTable, setScheduleTable] = useState([]); // State to hold the schedule text
 
   const addClass = () => {
-    setClassList([...classList, { course: null, code: null }]);
+    setClassList([...classList, { course: null, code: null, day: null, time: null}]);
   };
 
   const submitClass = () => {
@@ -93,16 +96,33 @@ const ScheduleBuilder = () => {
     if (newItems.length === 0) {
       alert("Please select both a course and a code."); // Alert if a selection is missing
     } else {
-      const selectedClasses = newItems.join(", "); // Join the classes for comparison
+      const selectedClasses = newItems.join(", ");
+      
+      // Example Hardcoded schedule based on the classes selected (can later be user-defined)
+      const classTimes = classList.map((item, index) => {
+        if (item.course && item.code) {
+          // Example hardcoding times and days based on course selection
+          return {
+            course: item.course.label,
+            code: item.code.label,
+            day: daysOfWeek[index % 5], // Assign classes to different days (for simplicity)
+            time: `${8 + index}:00 AM - ${9 + index}:00 AM` // Hardcode times (later make user-defined)
+          };
+        }
+        return null;
+      }).filter(item => item !== null);
+      
+      setScheduleTable(classTimes); // Update the table with class times and days
+      
       if (
         selectedClasses.includes("ECON 102") &&
         selectedClasses.includes("EECS 280") &&
         selectedClasses.includes("COGSCI 200") &&
         selectedClasses.includes("CLIMATE 102")
       ) {
-        setScheduleText("hi"); // Set text area to "hi"
+        setScheduleText("hi");
       } else {
-        setScheduleText(newItems.join("\n")); // Otherwise, set the text area with the class list
+        setScheduleText(newItems.join("\n"));
       }
     }
   };
@@ -179,9 +199,6 @@ const ScheduleBuilder = () => {
         {/* Third Section: Your Schedule */}
         <div className="section">
           <h1>YOUR SCHEDULE</h1>
-          <div className="arrow-container">
-            <span className="arrow">&#10145;</span> {/* Arrow Icon */}
-          </div>
           
           {/* Text Box to display the schedule */}
           <textarea
@@ -197,6 +214,36 @@ const ScheduleBuilder = () => {
               backgroundColor: "white" 
             }} 
           />
+        </div>
+
+        {/* Table Section for Class Schedule */}
+        <div className="section">
+          <table className="schedule-table" border="1" cellPadding="20">
+            <thead>
+              <tr>
+                {daysOfWeek.map((day) => (
+                  <th key={day}>{day}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                {daysOfWeek.map((day) => (
+                  <td key={day}>
+                    {scheduleTable
+                      .filter((item) => item.day === day)
+                      .map((item, index) => (
+                        <div key={index}>
+                          {item.course} {item.code}
+                          <br />
+                          {item.time}
+                        </div>
+                      ))}
+                  </td>
+                ))}
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
