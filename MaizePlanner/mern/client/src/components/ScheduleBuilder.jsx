@@ -30,45 +30,53 @@ const courseCodes = [
 
 const ScheduleBuilder = () => {
   return (
-    <div className="schedule-container">
-      {/* First Section: Semester */}
-      <div className="section">
-        <h1>SEMESTER</h1>
-        <Select
-          className="dropdown-select"
-          options={[
-            { value: "Spring 2024", label: "Spring 2024" },
-            { value: "Summer 2024", label: "Summer 2024" },
-            { value: "Fall 2024", label: "Fall 2024" }
-          ]}
-          placeholder="Choose a semester"
-        />
-      </div>
-
-      {/* Second Section: Classes */}
-      <div className="section">
-        <h1>CLASSES</h1>
-        <div className="dropdown-container">
+    <div>
+      {/* Header Bar */}
+      <header className="header-bar">
+        <h1 className="header-title">MaizePlanner</h1>
+      </header>
+      
+      {/* Main Content */}
+      <div className="schedule-container">
+        {/* First Section: Semester */}
+        <div className="section-semester">
+          <h1>SEMESTER</h1>
           <Select
             className="dropdown-select"
-            options={courses}
-            placeholder="Course name"
-            isSearchable
-          />
-          <Select
-            className="dropdown-select"
-            options={courseCodes} 
-            placeholder="Course code"
-            isSearchable
+            options={[
+              { value: "Spring 2024", label: "Spring 2024" },
+              { value: "Summer 2024", label: "Summer 2024" },
+              { value: "Fall 2024", label: "Fall 2024" }
+            ]}
+            placeholder="Choose a semester"
           />
         </div>
-      </div>
 
-      {/* Third Section: Your Schedule */}
-      <div className="section">
-        <h1>YOUR SCHEDULE</h1>
-        <div className="arrow-container">
-          <span className="arrow">&#10145;</span> {/* Arrow Icon */}
+        {/* Second Section: Classes */}
+        <div className="section">
+          <h1>CLASSES</h1>
+          <div className="dropdown-container">
+            <Select
+              className="dropdown-select"
+              options={courses}
+              placeholder="Course name"
+              isSearchable
+            />
+            <Select
+              className="dropdown-select"
+              options={courseCodes} 
+              placeholder="Course code"
+              isSearchable
+            />
+          </div>
+        </div>
+
+        {/* Third Section: Your Schedule */}
+        <div className="section">
+          <h1>YOUR SCHEDULE</h1>
+          <div className="arrow-container">
+            <span className="arrow">&#10145;</span> {/* Arrow Icon */}
+          </div>
         </div>
       </div>
     </div>

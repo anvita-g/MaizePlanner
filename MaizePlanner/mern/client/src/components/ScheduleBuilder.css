@@ -1,13 +1,41 @@
-.schedule-container {
-    background-color: #FFCB05;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    padding: 2rem;
-  }
+.header-bar {
+    background-color: #003366;
+    padding: 1rem 2rem;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100; 
+    border-bottom: 3px solid white; 
+}
   
+  .header-title {
+    color: #FFCB05;
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0;
+  }
+
+
+    .schedule-container {
+        background-color: #FFCB05;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+        padding: 2rem;
+        padding-top: 6rem; 
+    }
+
+    .section-semester h1{
+        font-size: 4rem;
+        font-weight: bold;
+        color: #003366;
+        margin-bottom: 2rem;
+        margin-left: 6rem;
+      }
+
   .section {
     display: flex;
     justify-content: space-between;
@@ -25,7 +53,7 @@
 
   .dropdown-container {
     display: flex;
-    gap: 1.5rem; 
+    gap: 2rem; 
     flex-wrap: wrap;
 }
   
