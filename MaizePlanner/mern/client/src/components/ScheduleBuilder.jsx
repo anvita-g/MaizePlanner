@@ -179,7 +179,7 @@ const ScheduleBuilder = () => {
       <div className="schedule-container">
         {/* First Section: Semester */}
         <div className="section">
-          <h1 className="section-label"><u>SEMESTER</u></h1>
+          <h1 className="section-label">SEMESTER</h1>
           <Select
             className="dropdown-select"
             options={[
@@ -193,7 +193,7 @@ const ScheduleBuilder = () => {
 
         {/* Second Section: Classes */}
         <div className="section">
-          <h1><u>CLASSES</u></h1>
+          <h1>CLASSES</h1>
           {classList.map((item, index) => (
             <div key={index} className="dropdown-container">
               <Select
@@ -227,7 +227,7 @@ const ScheduleBuilder = () => {
 
         {/* Third Section: Class Schedule */}
         <div className="section">
-        <h1 className="section"><u>YOUR SCHEDULE</u></h1>
+        <h1 className="section">YOUR SCHEDULE</h1>
         </div>
 
         {/* Table Section for Class Schedule */}
