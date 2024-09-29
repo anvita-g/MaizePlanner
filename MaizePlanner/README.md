@@ -1,15 +1,12 @@
-# mern-stack-example
-Mern Stack code for the [Mern Tutorial](https://www.mongodb.com/languages/mern-stack-tutorial)
+# MaizePlanner
 
-[![CI](https://github.com/mongodb-developer/mern-stack-example/actions/workflows/main.yaml/badge.svg)](https://github.com/mongodb-developer/mern-stack-example/actions/workflows/main.yaml)
+Welcome to MaizePlanner an all in one scheduling tool for Univeirsty of Michigan students!
+
+# Inspiration
+
+We saw the struggle many students have with scheduling for classes and we wanted tod esign and allow for an easier way for students to plan classes over multiple semester. Our web application will let U-M students organize their classes in an intercative way. We envision students having their dream schedule in an easy layout to visualize. 
 
 ## How To Run
-Create the file `mern/server/config.env` with your Atlas URI and the server port:
-```
-ATLAS_URI=mongodb+srv://<username>:<password>@sandbox.jadwj.mongodb.net/
-PORT=5050
-```
-
 Start server:
 ```
 cd mern/server
@@ -23,7 +20,3 @@ cd mern/client
 npm install
 npm run dev
 ```
-
-## Disclaimer
-
-Use at your own risk; not a supported MongoDB product
