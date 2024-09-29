@@ -117,4 +117,35 @@
   .submit-class-button {
     background-color: #f0f0f0;
   }
+
+
+
+  .schedule-table {
+    border-collapse: collapse; /* Collapses borders into a single border */
+    width: 100%; /* Makes the table take the full width */
+    margin-top: 20px; /* Adds some space above the table */
+
+    table-layout: fixed;
+  }
+  
+  .schedule-table th, .schedule-table td {
+    border: 2px solid #003366; /* Sets a solid border with a color */
+    padding: 15px; /* Increased padding inside table cells */
+    text-align: center; /* Centers the text */
+  }
+  
+  .schedule-table th {
+    background-color: #003366; /* Header background color */
+    color: white; /* Header text color */
+    font-weight: bold; /* Makes header text bold */
+  }
+  
+  .schedule-table td {
+    background-color: #f8f9fa; /* Light background color for table data */
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+  }
+  
+  .schedule-table td:hover {
+    background-color: #e9ecef; /* Change background on hover */
+  }
   

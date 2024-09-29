@@ -81,18 +81,18 @@ const courseCodes = [
 const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 
 const ScheduleBuilder = () => {
-  const [classList, setClassList] = useState([{ course: null, code: null }]);
+  const [classList, setClassList] = useState([{ course: null, code: "" }]);
   const [scheduleTable, setScheduleTable] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
 
   const addClass = () => {
-    setClassList([...classList, { course: null, code: null }]);
+    setClassList([...classList, { course: null, code: "" }]);
   };
 
   const submitClass = () => {
     const newItems = classList.map((classItem) => {
       const { course, code } = classItem;
-      return course && code ? `${course.label} ${code.label}` : null;
+      return course && code ? `${course.label} ${code}` : null; // Updated to use code directly
     }).filter(item => item !== null);
 
     if (newItems.length === 0) {
@@ -101,6 +101,7 @@ const ScheduleBuilder = () => {
     }
 
     const selectedClasses = newItems.join(", ");
+
 
     // Check if SI 364 is selected
     if (selectedClasses.includes("SI 364")) {
@@ -132,7 +133,7 @@ const ScheduleBuilder = () => {
     if (selectedClasses.includes("STATS 250")) {
       classTimes.push({ course: "STATS", code: "250", day: "Tuesday", time: "8:30 AM - 10:00 AM" });
       classTimes.push({ course: "STATS", code: "250", day: "Thursday", time: "8:30 AM - 10:00 AM" });
-      classTimes.push({ course: "STATS", code: "250", day: "Wednesday", time: "12:30 AM - 2:30 PM" });
+      classTimes.push({ course: "STATS", code: "250", day: "Wednesday", time: "12:30 PM - 2:30 PM" });
     }
     
     if (selectedClasses.includes("CMPLXSYS 251")) {
@@ -204,14 +205,12 @@ const ScheduleBuilder = () => {
                   handleClassChange(index, selectedOption, "course")
                 }
               />
-              <Select
-                className="dropdown-select"
-                options={courseCodes}
+              <input
+                type="text"
+                className="course-code-input"
                 placeholder="Course code"
-                isSearchable
-                onChange={(selectedOption) =>
-                  handleClassChange(index, selectedOption, "code")
-                }
+                value={item.code}
+                onChange={(e) => handleClassChange(index, e.target.value, "code")}
               />
             </div>
           ))}
@@ -233,7 +232,7 @@ const ScheduleBuilder = () => {
 
         {/* Table Section for Class Schedule */}
         <div className="section">
-          <table className="schedule-table" border="1" cellPadding="20">
+          <table className="schedule-table">
             <thead>
               <tr>
                 {daysOfWeek.map((day) => (
