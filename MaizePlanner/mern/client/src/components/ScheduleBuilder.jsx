@@ -79,9 +79,18 @@ const courseCodes = [
 const ScheduleBuilder = () => {
   const [classList, setClassList] = useState([{ course: null, code: null }]);
 
+  const [items, setItems] = useState([]);
+
   // Function to add a new row for class selection
   const addClass = () => {
     setClassList([...classList, { course: null, code: null }]);
+    //setClassList([{ course: null, code: null }]);
+  };
+
+  // Function to add a new class to an array
+  const submitClass = () => {
+    const newItem = `${course.label} ${code.label}`; 
+    setItems([...items, newItem]);
   };
 
   // Function to handle changes in course or code
@@ -149,6 +158,9 @@ const ScheduleBuilder = () => {
           <button className="add-class-button" onClick={addClass}>
             Add Another Class
           </button>
+          <button className="submit-class-button" onClick={submitClass}>
+            Submit Class
+          </button>
         </div>
 
         {/* Third Section: Your Schedule */}
@@ -157,6 +169,11 @@ const ScheduleBuilder = () => {
           <div className="arrow-container">
             <span className="arrow">&#10145;</span> {/* Arrow Icon */}
           </div>
+          <ul>
+            {items.map((item, index) => (
+              <li key={index}>{item}</li> // Display each item in a list
+            ))}
+          </ul>
         </div>
       </div>
     </div>
